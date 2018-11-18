@@ -8,17 +8,20 @@
     "start": "node --inspect src/index.js",
     "dev": "nodemon --watch src src/index.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Marcel Link",
+    "email": "marcel.link@t-online.de"
+  },
+  "license": "GPLv3",
   "dependencies": {
-    "fastify": "^1.12.1",
+    "fastify": "^1.13.0",
     "fastify-static": "^0.14.0",
     "node-cache": "^4.2.0",
     "socket.io": "^2.1.1",
     "stream-cache": "0.0.2",
-    "ytdl-core": "^0.26.2"
+    "ytdl-core": "^0.26.3"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.6"
   }
 }
