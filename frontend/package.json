@@ -1,0 +1,29 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "css-loader": "^1.0.0",
+    "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "jquery": "^3.3.1",
+    "jquery-confirm": "^3.3.2",
+    "jquery-contextmenu": "^2.7.1",
+    "jquery-toggles": "^4.0.0",
+    "jquery-ui": "^1.12.1",
+    "pixi-viewport": "^3.9.0",
+    "pixi.js": "^4.8.2",
+    "socket.io-client": "^2.1.1",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  }
+}

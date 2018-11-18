@@ -1,0 +1,6 @@
+{
+    "hexagon" : {
+        "radius" : 256,
+        "border" : 5
+    }
+}

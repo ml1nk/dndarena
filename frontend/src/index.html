@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+    * {
+        zoom:reset;
+    }
+    html, body {
+      margin:0;
+      padding:0;
+      height:100%;
+      width:100%;
+      overflow:hidden;
+    }
+    body {
+      background:radial-gradient(ellipse at center, rgba(166,166,166,1) 0%, rgba(139,138,138,1) 24%, rgba(78,77,76,1) 78%, rgba(54,53,51,1) 100%);
+    }
+  
+    #slider-rotate {
+      position:absolute;
+      top:20px;
+      left:21px;
+      height:100px;
+    }
+    #button-load, #button-save {
+      position:absolute;
+      left:12px;
+      display:none;
+    }
+    #button-load {
+      bottom:20px;
+    }
+    #button-save {
+      bottom:60px;
+    }
+
+    .chat
+    {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .chat li
+    {
+        width:90%;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-top: 1px solid #E0E0E0;
+    }
+
+    .chat li.left .chat-body
+    {
+        margin-left: 60px;
+    }
+
+    .chat li.right .chat-body
+    {
+        margin-right: 60px;
+    }
+
+
+    .chat li .chat-body p
+    {
+        margin: 0;
+        color: #777777;
+    }
+
+    .panel .slidedown .glyphicon, .chat .glyphicon
+    {
+        margin-right: 5px;
+    }
+
+    #chatbox .panel-body
+    {
+        background-color: white;
+        opacity: 0.7;
+        height: calc(100vh - 150px);
+        overflow-y: scroll;
+        position:relative;
+    }
+
+    #chatbox .panel-footer {
+      pointer-events:all;
+    }
+
+    #chatbox .panel-footer {
+      border-radius: 0;
+      border:0;
+    }
+
+    #chatbox {
+        bottom: 60px;
+        right: 0;
+        position: absolute;
+        pointer-events:none;
+        width:25vw;
+    }
+
+    #chatbox>.panel {
+      background-color:transparent;
+      border:none;
+      box-shadow:none;
+      margin-right: 20px;
+    }
+
+    #button-chat { 
+        display:none;
+        bottom: 20px;
+        right: 20px;
+        position: absolute;
+        padding: 0;
+        font-size: 35px;
+        width: 70px;   
+    }
+
+    #button-mute { 
+        display:none;
+        bottom: 20px;
+        right: 110px;
+        position: absolute;
+        padding: 0;
+        font-size: 35px;
+        width: 70px;   
+    }
+    
+    </style>
+  </head>
+  <body oncontextmenu="return false;">
+    <span id="context-menu-field"></span>
+    <div id="slider-rotate"></div>
+    <button type="button" id="button-load" class="btn btn-primary"><span class="glyphicon glyphicon-open" aria-hidden="true"></span></button>
+    <button type="button" id="button-save" class="btn btn-primary"><span class="glyphicon glyphicon-save" aria-hidden="true"></span></button>
+    <button type="button" id="button-mute" class="btn btn-primary"><span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span></button>
+    <button type="button" id="button-chat" class="btn btn-primary" data-toggle="collapse" href="#collapseOne"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
+
+    <div class="chatbox" style="display:none" id="chatbox">
+        <div class="panel panel-primary">
+        <div class="panel-collapse collapse" id="collapseOne">
+            <div class="panel-body">
+                <ul class="chat" id="chat">
+                </ul>
+            </div>
+            <div class="panel-footer">
+                <div class="input-group">
+                    <input id="txtsendtext" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-success btn-sm" id="btnchat">Send</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+  </body>
+</html>
