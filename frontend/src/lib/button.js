@@ -30,6 +30,12 @@ function init() {
     $("#button-save").show().click(()=>{
         download('map_'+getFormattedTime()+'.dnd', 'text/plain', JSON.stringify(io.state()));
     });
+
+    $("#button-play").show().click(()=>{
+        io.audio.play($("#button-play span").hasClass("glyphicon-play"));
+    });
+    $("#button-audio").show();
+
 }
 
 exports.init = init;

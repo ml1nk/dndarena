@@ -25,16 +25,25 @@
       left:21px;
       height:100px;
     }
-    #button-load, #button-save {
+    #button-load, #button-save, #button-play, #button-audio {
       position:absolute;
-      left:12px;
       display:none;
     }
-    #button-load {
-      bottom:20px;
+
+    #button-load, #button-save {
+        left:12px;
     }
-    #button-save {
-      bottom:60px;
+
+    #button-play, #button-audio {
+        left:62px;
+    }
+
+    #button-load, #button-play {
+        bottom:20px;
+    }
+
+    #button-save, #button-audio {
+        bottom:60px;
     }
 
     .chat
@@ -136,6 +145,9 @@
     <div id="slider-rotate"></div>
     <button type="button" id="button-load" class="btn btn-primary"><span class="glyphicon glyphicon-open" aria-hidden="true"></span></button>
     <button type="button" id="button-save" class="btn btn-primary"><span class="glyphicon glyphicon-save" aria-hidden="true"></span></button>
+    <button type="button" id="button-play" class="btn btn-primary"><span class="glyphicon" aria-hidden="true"></span></button>
+    <button type="button" id="button-audio" class="btn btn-primary"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></button>
+
     <button type="button" id="button-mute" class="btn btn-primary"><span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span></button>
     <button type="button" id="button-chat" class="btn btn-primary" data-toggle="collapse" href="#collapseOne"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
 

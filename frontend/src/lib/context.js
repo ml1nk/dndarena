@@ -17,13 +17,12 @@ $.contextMenu({
         // e is the original contextmenu event, containing e.pageX and e.pageY (amongst other data)
         return {
             callback: key => {
-                console.log("test",field);
                 if(key==="sep1") return;
                 if(key==="del") {
-                    io.del(field.x, field.y, field.z);
+                    io.field.del(field.x, field.y, field.z);
                     return;
                 } 
-                io.add(key, field.x, field.y, field.z);
+                io.field.add(key, field.x, field.y, field.z);
             },
             items: {
                 "fold1": {

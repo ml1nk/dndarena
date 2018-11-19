@@ -54,32 +54,41 @@ fastify.listen(3000, "0.0.0.0", (err, address) => {
   fastify.log.info(`server listening on ${address}`)
 })
 
-let data = { field : {
-  "0:0:0" : "transparent"
-}};
+let data = { 
+  field : {
+    "0:0:0" : "transparent"
+  },
+  audio : {
+    play : true
+  }
+};
 
 
 io.on('connection', function (socket) {
   
   socket.emit("load", data);
 
-  socket.on("message",obj=>socket.broadcast.emit("message",obj));
-
-  socket.on("add",obj=> {
-    data.field[obj.x+":"+obj.y+":"+obj.z] = obj.name;
-    socket.broadcast.emit("add",obj);
-  });
-
-  socket.on("del",obj=> {
-    delete data.field[obj.x+":"+obj.y+":"+obj.z];
-    socket.broadcast.emit("del",obj);
-  });
-
   socket.on("load",obj=> {
     data = obj;
     socket.broadcast.emit("load",obj);
   });
 
-  socket.on('message', function () { });
+  socket.on("message",obj=>socket.broadcast.emit("message",obj));
+
+  socket.on("field/add",obj=> {
+    data.field[obj.x+":"+obj.y+":"+obj.z] = obj.name;
+    socket.broadcast.emit("field/add",obj);
+  });
+
+  socket.on("field/del",obj=> {
+    delete data.field[obj.x+":"+obj.y+":"+obj.z];
+    socket.broadcast.emit("field/del",obj);
+  });
+
+  socket.on("audio/play",obj=> {
+    data.audio.play = obj;
+    socket.broadcast.emit("audio/play",obj);
+  });
+
   socket.on('disconnect', function () { });
 });
