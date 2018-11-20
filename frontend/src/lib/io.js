@@ -2,6 +2,8 @@ let socket = require("socket.io-client");
 let sprites = require("./sprites.js");
 let calc = require("./calc.js");
 let chat = require("./chat.js");
+let audio = require("./audio.js");
+
 
 let state;
 let io;
@@ -13,6 +15,7 @@ exports.init = ()=>{
     io.on("field/add",obj=>exports.field.add(obj.name,obj.x,obj.y,obj.z, false));
     io.on("field/del",obj=>exports.field.del(obj.x,obj.y,obj.z, false));
     io.on("audio/play",obj=>exports.audio.play(obj, false));
+    io.on("audio/set",obj=>exports.audio.set(obj.id, obj.time, false));
 }
 
 
@@ -25,6 +28,7 @@ function load(data, so=true) {
     if(so) io.emit("load",data);
     sprites.clear();
     state = data;
+    console.log("init", state);
     sync_field();
     sync_audio();
 }
@@ -40,6 +44,8 @@ function sync_audio() {
     $("#button-play span")
         .removeClass(state.audio.play ? "glyphicon-play" : "glyphicon-pause")
         .addClass(state.audio.play ? "glyphicon-pause" : "glyphicon-play");
+    audio.set(state.audio.play, state.audio.id, state.audio.time);
+
 }
 
 exports.field = {
@@ -65,6 +71,12 @@ exports.audio = {
     play : (play, so=true) =>{
         if(so) io.emit("audio/play",play);
         state.audio.play = play;
+        sync_audio();
+    },
+    set : (id, time, so=true) =>{
+        if(so) io.emit("audio/set",{ id : id, time : time});
+        state.audio.id = id;
+        state.audio.time = time;
         sync_audio();
     }
 }

@@ -3,14 +3,14 @@ const sprites = require('./lib/sprites.js');
 const io = require('./lib/io.js');
 const slider = require('./lib/slider.js');
 const button = require('./lib/button.js');
-const input = require('./lib/input.js');
+const dialog = require('./lib/startup.js');
 const chat = require('./lib/chat.js');
 
 document.body.appendChild(pixi.app.view);
 
 (async ()=>{
     let sp = sprites.promise;
-    await input.init();
+    await dialog.init();
     await sp;
     chat.init();
     io.init();

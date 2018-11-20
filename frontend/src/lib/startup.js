@@ -4,6 +4,7 @@ require("jquery-toggles/toggles.js");
 require("jquery-confirm/css/jquery-confirm.css");
 require("jquery-toggles/css/toggles.css");
 require("jquery-toggles/css/themes/toggles-modern.css");
+const io = require("./io.js");
 
 let name;
 let gm;
@@ -12,6 +13,12 @@ let gm;
 function init() {
     let res;
     let pro = new Promise(resolve=>res=resolve);
+    startup(res);
+    return pro;
+}
+
+
+function startup(res) {
     $.confirm({
         title: 'Login',
         draggable: false,
@@ -44,15 +51,13 @@ function init() {
                 height: 50,
             });
             var jc = this;
-            this.$content.find('form').on('submit', function (e) {
+            this.$content.find('form').on('submit', (e) => {
                 e.preventDefault();
                 jc.$$formSubmit.trigger('click');
             });
         }
     });
-    return pro;
 }
-
 
 exports.init = init;
 exports.name = ()=>name;

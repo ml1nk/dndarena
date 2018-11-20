@@ -1,7 +1,7 @@
 const $ = require('jquery');
 require('bootstrap');
 require('bootstrap/dist/css/bootstrap.css');
-const input = require('./input.js');
+const dialog = require('./startup.js');
 const io = require('./io.js');
 
 function init(){
@@ -10,7 +10,7 @@ function init(){
     $('#btnchat').click(()=>{
         let value = $('#txtsendtext').val();
         $("#txtsendtext").val('');
-        io.message(input.name() + ": " + value);
+        io.message(dialog.name() + ": " + value);
     });
 }
 

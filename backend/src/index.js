@@ -59,7 +59,9 @@ let data = {
     "0:0:0" : "transparent"
   },
   audio : {
-    play : true
+    play : true,
+    id : "",
+    time : 0
   }
 };
 
@@ -89,6 +91,13 @@ io.on('connection', function (socket) {
     data.audio.play = obj;
     socket.broadcast.emit("audio/play",obj);
   });
+
+  socket.on("audio/set",obj=> {
+    data.audio.id = obj.id;
+    data.audio.time = obj.time;
+    socket.broadcast.emit("audio/set",obj);
+  });
+
 
   socket.on('disconnect', function () { });
 });
