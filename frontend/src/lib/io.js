@@ -26,7 +26,7 @@ io.on("state", obj => {
 
 exports.state = {
         set: (key, value) => io.emit("state", [key, value]),
-        get: state,
+        get: ()=>state,
         on: ev.on.bind(ev),
         once: ev.once.bind(ev),
         off: ev.off.bind(ev),
@@ -38,7 +38,6 @@ exports.message = {
 exports.audio = (v, cb) => io.emit("audio", v, cb);
 
 exports.init = () => io.open();
-
 
 /*
    io.on("load", obj=>load(obj,false));

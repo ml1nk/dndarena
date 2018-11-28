@@ -10,13 +10,14 @@ function init(){
     $('#btnchat').click(()=>{
         let value = $('#txtsendtext').val();
         $("#txtsendtext").val('');
-        io.message(dialog.name() + ": " + value);
+        io.message.out(dialog.name() + ": " + value);
+        add(dialog.name() + ": " + value, true);
     });
+    io.message.in(text=>add(text, false));
 }
 
-
-function add(text, so=true) {
-    if(so===false && $("#collapseOne.in").length===0 && $("#button-chat").css("color")!=="orange") {
+function add(text, own) {
+    if(!own && $("#collapseOne.in").length===0 && $("#button-chat").css("color")!=="orange") {
         $("#button-chat").css("color","orange");
         $("#button-chat").one("click",()=>$("#button-chat").css("color","white"));
     };
@@ -26,4 +27,3 @@ function add(text, so=true) {
 }
 
 exports.init = init;
-exports.add = add;

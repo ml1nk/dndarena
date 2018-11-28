@@ -46,7 +46,7 @@ io.on('connection', function (socket) {
 
   socket.on('audio',async (v,cb)=>{
     try {
-      let info = await ytdl.getInfo('http://youtube.com/watch?v='+v);
+      let info = await ytdl.getInfo(v);
       let format = ytdl.chooseFormat(info.formats, { 
         filter: "audioonly",
         quality: "highestaudio"

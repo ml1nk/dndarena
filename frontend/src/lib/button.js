@@ -23,12 +23,12 @@ function init() {
         try {
             let res = await upload(".dnd");
             let data = JSON.parse(res);
-            io.load(data);
+            io.state.set("",data);
         } catch(e) {}
     });
 
     $("#button-save").show().click(()=>{
-        download('map_'+getFormattedTime()+'.dnd', 'text/plain', JSON.stringify(io.state()));
+        download('map_'+getFormattedTime()+'.dnd', 'text/plain', JSON.stringify(io.state.get()));
     });
 
     $("#button-audio").show();
