@@ -2,6 +2,7 @@ const pixi = require('./lib/pixi.js');
 const sprites = require('./lib/sprites.js');
 const io = require('./lib/io.js');
 const slider = require('./lib/slider.js');
+const audio = require('./lib/audio.js');
 const button = require('./lib/button.js');
 const dialog = require('./lib/startup.js');
 const chat = require('./lib/chat.js');
@@ -9,13 +10,14 @@ const chat = require('./lib/chat.js');
 document.body.appendChild(pixi.app.view);
 
 (async ()=>{
-    let sp = sprites.promise;
+    let sp = sprites.init();
     await dialog.init();
     await sp;
+    audio.init();
     chat.init();
-    io.init();
     slider.init();
     button.init();
+    io.init();
 })();
 
 
