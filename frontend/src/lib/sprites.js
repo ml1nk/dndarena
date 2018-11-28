@@ -2,10 +2,9 @@ const PIXI = require("pixi.js");
 const pixi = require('./pixi.js');
 const calc = require("./calc.js");
 const hexagon = require("./../config.json").hexagon;
-let req = require.context("../../assets/fields/", false, /\.png$/);
-
+const io = require("./io.js");
 const data = {};
-
+const req = require.context("../../assets/fields/", false, /\.png$/);
 const pol = [
     -hexagon.radius, 0,
     -hexagon.radius/2, calc.height()/2,
@@ -16,23 +15,39 @@ const pol = [
     -hexagon.radius, 0
 ];
 const fields = {};
-const loader = new PIXI.loaders.Loader();
-req.keys().forEach(function(key){
-    loader.add(key.slice(2,-4), req(key));
-});
 
-let resolve;
-let promise = new Promise((_resolve)=>{
-    resolve = _resolve;
-});
+exports.init = () => {
+    const loader = new PIXI.loaders.Loader();
+    req.keys().forEach(function(key){
+        loader.add(key.slice(2,-4), req(key));
+    });
 
-loader.load((loader, resources) => {
-    for(let key in resources) {
-        fields[key] = genHex(resources[key].texture);
-    }
-    resolve();
-})
+    io.state.on("field.*",(key, pre)=>{
+        let [x, y, z] = calc.from(key);
+        if(typeof pre[key] === "undefined") {
+            del(x,y,z);
+        } else {
+            add(pre[key],x,y,z);
+        }
+    });
 
+    io.state.on("",(state)=>{
+        clear();
+        for(let key in state.field) {
+            let [x, y, z] = calc.from(key);
+            add(state.field[key],x,y,z);
+        }
+    });
+    
+    return new Promise((resolve)=>{
+        loader.load((loader, resources) => {
+            for(let key in resources) {
+                fields[key] = genHex(resources[key].texture);
+            }
+            resolve();
+        })
+    });
+}
 
 function genHex(tex, x, y, z) {
     let mask = new PIXI.Graphics()
@@ -89,8 +104,3 @@ function clear() {
         delete data[key];
     }
 }
-
-exports.add = add;
-exports.del = del;
-exports.clear = clear;
-exports.promise = promise;

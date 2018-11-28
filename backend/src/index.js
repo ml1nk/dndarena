@@ -13,38 +13,11 @@ const io = require('socket.io')(fastify.server);
 fastify.register(require('fastify-static'), {
   root: path.join(__dirname, '..', '..', 'frontend', 'dist'),
   prefix: '/dist/'
-})
+});
+
 // 2l7ixRE3OCw
 // 5aZI-jukT5E
-function getStream(v) {
-  let res = cache.get(v);
-  if(!res) {
-    let error = false;
-    ori = ytdl('http://youtube.com/watch?v='+v, {filter: 'audioonly', quality: 'highestaudio'});
-    ori.on("error",(e)=>{
-      res.emit("error",e);
-      res.error = e;
-    });
-    res = new streamCache();
-    ori.pipe(res);
-    cache.set(v, res);
-  }
-  return res;
-}
-
-function h404(e,res) {
-  console.warn(e);
-  res.status(404).send("Not Found");
-}
-
-fastify.get('/audio/:v', (req, res) => {
-  try {
-    let st = getStream(req.params.v);
-    if(st.error) h404(st.error, res); else st.on("error",(e)=>h404(e,res)).pipe(res.res);
-  } catch(e) {
-    h404(e,res);
-  }
-});
+// ximgPmJ9A5s
 
 fastify.get('/', (req, reply) => reply.sendFile('index.html'));
 
@@ -54,41 +27,51 @@ fastify.listen(3000, "0.0.0.0", (err, address) => {
   fastify.log.info(`server listening on ${address}`)
 })
 
-let data = { 
+
+let state = {
   field : {
     "0:0:0" : "transparent"
   },
   audio : {
-    play : true
+    play : false,
+    id : "",
+    data : false,
+    time : 0
   }
 };
 
-
 io.on('connection', function (socket) {
-  
-  socket.emit("load", data);
 
-  socket.on("load",obj=> {
-    data = obj;
-    socket.broadcast.emit("load",obj);
-  });
 
+
+  socket.on('audio',async (v,cb)=>{
+    try {
+      let info = await ytdl.getInfo(v);
+      let format = ytdl.chooseFormat(info.formats, { 
+        filter: "audioonly",
+        quality: "highestaudio"
+      });
+      if (!format) cb(false);
+      cb({ url : format.url, title : info.title, duration: parseInt(info.length_seconds), thumbnail : info.thumbnail_url});
+    } catch(e) {
+      cb(false);
+    }
+  })
+
+  socket.emit("state", ["",state]);
   socket.on("message",obj=>socket.broadcast.emit("message",obj));
-
-  socket.on("field/add",obj=> {
-    data.field[obj.x+":"+obj.y+":"+obj.z] = obj.name;
-    socket.broadcast.emit("field/add",obj);
+  socket.on("state",obj => {
+    if(obj[0] === "") {
+      state = obj[1];
+    } else {
+      let parts = obj[0].split('.');
+      let pre = parts.slice(0, -1).reduce((o, i) => o[i], state);
+      if(obj[1]===null) {
+          delete pre[parts.slice(-1)[0]];
+      } else {
+          pre[parts.slice(-1)[0]] = obj[1];
+      }
+    }
+    io.emit("state",obj);
   });
-
-  socket.on("field/del",obj=> {
-    delete data.field[obj.x+":"+obj.y+":"+obj.z];
-    socket.broadcast.emit("field/del",obj);
-  });
-
-  socket.on("audio/play",obj=> {
-    data.audio.play = obj;
-    socket.broadcast.emit("audio/play",obj);
-  });
-
-  socket.on('disconnect', function () { });
 });

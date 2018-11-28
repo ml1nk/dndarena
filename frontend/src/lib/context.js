@@ -19,10 +19,10 @@ $.contextMenu({
             callback: key => {
                 if(key==="sep1") return;
                 if(key==="del") {
-                    io.field.del(field.x, field.y, field.z);
+                    io.state.set("field."+field.x+":"+field.y+":"+field.z,null);
                     return;
-                } 
-                io.field.add(key, field.x, field.y, field.z);
+                }
+                io.state.set("field."+field.x+":"+field.y+":"+field.z,key);
             },
             items: {
                 "fold1": {

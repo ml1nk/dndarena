@@ -22,6 +22,10 @@ module.exports = {
         ]
       },
       {
+        test: /\.(html)$/,
+        use: ['html-loader']
+      },
+      {
         test: /\.css$/,
         use: [ 'style-loader', 'css-loader' ]
       }
@@ -34,7 +38,6 @@ module.exports = {
       "window.jQuery": "jquery"
     }),
     new HtmlWebpackPlugin({
-      title: '42',
       template: 'src/index.html'
     })
   ]
