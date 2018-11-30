@@ -1,11 +1,12 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const prod = process.env.NODE_ENV === "production";
 
 module.exports = {
-  mode: 'development',
+  mode: prod ? 'production' : 'development',
   entry: './frontend/index.js',
-  devtool: 'eval-source-map',
+  devtool: prod ? 'source-map' : 'eval-source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
