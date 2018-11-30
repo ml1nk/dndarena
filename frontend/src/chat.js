@@ -5,6 +5,7 @@ const dialog = require('./startup.js');
 const io = require('./io.js');
 
 function init(){
+    $("#button-chat").show();
     $('#chatbox').show();
     $("#txtsendtext").keyup((e)=>{if (e.keyCode === 13) $("#btnchat").click()});
     $('#btnchat').click(()=>{

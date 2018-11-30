@@ -9,26 +9,13 @@ const io = require("./io.js");
 let name;
 let gm;
 
-
-function init() {
-    let res;
-    let pro = new Promise(resolve=>res=resolve);
-    startup(res);
-    return pro;
-}
-
+exports.init = ()=>new Promise(resolve=>startup(resolve));
 
 function startup(res) {
     $.confirm({
         title: 'Login',
         draggable: false,
-        content: '' +
-        '<form class="formName">' +
-        '<div class="form-group"><br/>' +
-        '<input type="text" placeholder="Character Name" class="name form-control" required /><br/>' +
-        '<div id="init-toggle" style="margin: auto;height:50px" class="toggle toggle-modern">' +
-        '</div>' +
-        '</form>',
+        content: require("./startup.html"),
         buttons: {
             formSubmit: {
                 text: 'Save',
@@ -37,7 +24,7 @@ function startup(res) {
                     name = this.$content.find('.name').val();
                     gm = $('#init-toggle').data('toggles').active;
                     if(name) {
-                        res();
+                        res({name:name, gm:gm});
                         return true;
                     }
                     return false;
@@ -58,7 +45,3 @@ function startup(res) {
         }
     });
 }
-
-exports.init = init;
-exports.name = ()=>name;
-exports.gm = ()=>gm;

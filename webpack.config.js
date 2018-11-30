@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: './frontend/index.js',
+  devtool: 'eval-source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',

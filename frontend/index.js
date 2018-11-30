@@ -1,22 +1,24 @@
-const pixi = require('./lib/pixi.js');
-const sprites = require('./lib/sprites.js');
-const io = require('./lib/io.js');
-const slider = require('./lib/slider.js');
-const audio = require('./lib/audio.js');
-const button = require('./lib/button.js');
-const dialog = require('./lib/startup.js');
-const chat = require('./lib/chat.js');
+const pixi = require('./src/pixi.js');
+const sprites = require('./src/sprites.js');
+const io = require('./src/io.js');
+const slider = require('./src/slider.js');
+const audio = require('./src/audio.js');
+const loadsave = require('./src/loadsave.js');
+const dialog = require('./src/startup.js');
+const chat = require('./src/chat.js');
+const context = require('./src/context.js');
 
 document.body.appendChild(pixi.app.view);
 
 (async ()=>{
     let sp = sprites.init();
-    await dialog.init();
+    let me = await dialog.init();
     await sp;
-    audio.init();
-    chat.init();
-    slider.init();
-    button.init();
+    audio.init(me);
+    chat.init(me);
+    context.init(me);
+    slider.init(me);
+    loadsave.init(me);
     io.init();
 })();
 
