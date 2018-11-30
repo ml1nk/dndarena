@@ -4,7 +4,7 @@ const calc = require("./calc.js");
 const hexagon = require("./../config.json").hexagon;
 const io = require("./io.js");
 const data = {};
-const req = require.context("../../assets/fields/", false, /\.png$/);
+const req = require.context("../assets/fields/", false, /\.png$/);
 const pol = [
     -hexagon.radius, 0,
     -hexagon.radius/2, calc.height()/2,

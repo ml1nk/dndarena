@@ -2,10 +2,11 @@
   "name": "frontend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --watch"
+    "dev": "concurrently --kill-others \"npm run dev-watch\" \"npm run dev-server\"",
+    "dev-watch": "webpack --watch",
+    "dev-server": "nodemon server.js"
   },
   "author": {
     "name": "Marcel Link",
@@ -29,6 +30,17 @@
     "style-loader": "^0.23.1",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2",
-    "youtube-url": "^0.5.0"
+    "youtube-url": "^0.5.0",
+    "eventemitter3": "^3.1.0",
+    "fastify": "^1.13.0",
+    "fastify-static": "^0.14.0",
+    "node-cache": "^4.2.0",
+    "socket.io": "^2.1.1",
+    "stream-cache": "0.0.2",
+    "ytdl-core": "^0.26.3"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.18.6"
   }
 }

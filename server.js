@@ -11,7 +11,7 @@ const fastify = require('fastify')({
 const io = require('socket.io')(fastify.server);
 
 fastify.register(require('fastify-static'), {
-  root: path.join(__dirname, '..', '..', 'frontend', 'dist'),
+  root: path.join(__dirname, 'dist'),
   prefix: '/dist/'
 });
 
