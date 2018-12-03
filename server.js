@@ -28,7 +28,7 @@ fastify.listen(3000, "0.0.0.0", (err, address) => {
 })
 
 
-let state = {
+let def = {
   field : {
     "0:0:0" : "transparent"
   },
@@ -40,9 +40,15 @@ let state = {
   }
 };
 
+let state = {};
+
 io.on('connection', function (socket) {
+  let room = socket.handshake.query.room ? socket.handshake.query.room : "";
+  if(!state[room]) {
+    state[room] = JSON.parse(JSON.stringify(def));;
+  }
 
-
+  socket.join(room);
 
   socket.on('audio',async (v,cb)=>{
     try {
@@ -58,20 +64,20 @@ io.on('connection', function (socket) {
     }
   })
 
-  socket.emit("state", ["",state]);
-  socket.on("message",obj=>socket.broadcast.emit("message",obj));
+  socket.emit("state", ["",state[room]]);
+  socket.on("message",obj=>socket.to(room).emit("message",obj));
   socket.on("state",obj => {
     if(obj[0] === "") {
-      state = obj[1];
+      state[room] = obj[1];
     } else {
       let parts = obj[0].split('.');
-      let pre = parts.slice(0, -1).reduce((o, i) => o[i], state);
+      let pre = parts.slice(0, -1).reduce((o, i) => o[i], state[room]);
       if(obj[1]===null) {
           delete pre[parts.slice(-1)[0]];
       } else {
           pre[parts.slice(-1)[0]] = obj[1];
       }
     }
-    io.emit("state",obj);
+    io.to(room).emit("state",obj);
   });
 });

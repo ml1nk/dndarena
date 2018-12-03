@@ -19,7 +19,7 @@ document.body.appendChild(pixi.app.view);
     context.init(me);
     slider.init(me);
     loadsave.init(me);
-    io.init();
+    io.init(me);
 })();
 
 

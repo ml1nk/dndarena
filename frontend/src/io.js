@@ -37,4 +37,7 @@ exports.message = {
 };
 exports.audio = (v, cb) => io.emit("audio", v, cb);
 
-exports.init = () => io.open();
+exports.init = (me) => {
+    io.io.opts.query = {room:me.room};    
+    io.open();
+}
