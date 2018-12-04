@@ -1,6 +1,6 @@
 const path = require('path');
-const streamCache = require('stream-cache');
-const cache = new (require('node-cache'))( { stdTTL: 600, checkperiod: 120, useClones: false } );
+const clone = require('clone-deep');
+
 const ytdl = require("ytdl-core");
 
 // Require the framework and instantiate it
@@ -45,7 +45,7 @@ let state = {};
 io.on('connection', function (socket) {
   let room = socket.handshake.query.room ? socket.handshake.query.room : "";
   if(!state[room]) {
-    state[room] = JSON.parse(JSON.stringify(def));;
+    state[room] = clone(def);
   }
 
   socket.join(room);
