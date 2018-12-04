@@ -1,19 +1,10 @@
 const PIXI = require("pixi.js");
 const pixi = require('./pixi.js');
-const calc = require("./calc.js");
+const calc = require("../lib/calc.js");
 const hexagon = require("./../config.json").hexagon;
 const io = require("./io.js");
 const data = {};
 const req = require.context("../assets/fields/", false, /\.png$/);
-const pol = [
-    -hexagon.radius, 0,
-    -hexagon.radius/2, calc.height()/2,
-    hexagon.radius/2, calc.height()/2,
-    hexagon.radius, 0,
-    hexagon.radius/2, -calc.height()/2,
-    -hexagon.radius/2, -calc.height()/2,
-    -hexagon.radius, 0
-];
 const fields = {};
 
 exports.init = () => {
@@ -50,6 +41,7 @@ exports.init = () => {
 }
 
 function genHex(tex, x, y, z) {
+    let pol = calc.pol();
     let mask = new PIXI.Graphics()
     .beginFill(0x000000)
     .drawPolygon(pol)

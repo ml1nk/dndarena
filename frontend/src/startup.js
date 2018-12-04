@@ -45,7 +45,10 @@ function startup(res) {
                 text:{on:'GM',off:'Player'},
                 width: 170,
                 height: 50,
+                on: !!params.get("gm")
             });
+            this.$content.find('.name').val(params.get("name"));
+            this.$content.find('.room').val(params.get("room"));
             var jc = this;
             this.$content.find('form').on('submit', (e) => {
                 e.preventDefault();

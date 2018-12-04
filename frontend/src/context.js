@@ -4,7 +4,7 @@ require('jquery-contextmenu/dist/jquery.contextMenu');
 require('jquery-contextmenu/dist/jquery.contextMenu.css');
 const io = require('./io.js');
 const pixi = require('./pixi.js');
-const calc = require('./calc.js');
+const calc = require('../lib/calc.js');
 
 function init(me) {
     if(!me.gm) return;

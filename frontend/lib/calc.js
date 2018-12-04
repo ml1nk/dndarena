@@ -4,22 +4,32 @@ const hexagon = require('./../config.json').hexagon;
 
 const c = Math.PI/6;
 const height = hexagon.radius * Math.sqrt(3);
+const pol = [
+    -hexagon.radius, 0,
+    -hexagon.radius/2, height/2,
+    hexagon.radius/2, height/2,
+    hexagon.radius, 0,
+    hexagon.radius/2, -height/2,
+    -hexagon.radius/2, -height/2,
+    -hexagon.radius, 0
+];
+
 const Z = {
-    x : -hexagon.radius*Math.cos(-2*c),
-    y : -hexagon.radius*Math.sin(-2*c)
+    x : -(hexagon.radius-hexagon.border/2)*Math.cos(-2*c),
+    y : -(hexagon.radius-hexagon.border/2)*Math.sin(-2*c)
 }
 const X = {
-    x : -hexagon.radius*Math.cos(-6*c),
-    y : -hexagon.radius*Math.sin(-6*c)
+    x : -(hexagon.radius-hexagon.border/2)*Math.cos(-6*c),
+    y : -(hexagon.radius-hexagon.border/2)*Math.sin(-6*c)
 }
 const Y = {
-    x : -hexagon.radius*Math.cos(2*c),
-    y : -hexagon.radius*Math.sin(2*c)
+    x : -(hexagon.radius-hexagon.border/2)*Math.cos(2*c),
+    y : -(hexagon.radius-hexagon.border/2)*Math.sin(2*c)
 }
 
 function pixel_to_cube(x, y) {
-    let q = (2/3*x)/hexagon.radius;
-    let r = (-1/3*x+Math.sqrt(3)/3*y)/hexagon.radius;
+    let q = (2/3*x)/(hexagon.radius-hexagon.border/2);
+    let r = (-1/3*x+Math.sqrt(3)/3*y)/(hexagon.radius-hexagon.border/2);
     let [cx,cy,cz] = axial_to_cube(q, r);
     return cube_round(cx,cy,cz);
 }
@@ -70,4 +80,5 @@ exports.pixel_to_cube = pixel_to_cube;
 exports.cube_to_pixel = cube_to_pixel;
 exports.to = to;
 exports.from = from;
+exports.pol = ()=>pol;
 exports.height = ()=>height;
