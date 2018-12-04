@@ -11,7 +11,7 @@ const context = require('./src/context.js');
 document.body.appendChild(pixi.app.view);
 
 (async ()=>{
-    let sp = sprites.init();
+    let sp = sprites.pre();
     let me = await dialog.init();
     await sp;
     audio.init(me);
@@ -19,6 +19,7 @@ document.body.appendChild(pixi.app.view);
     context.init(me);
     slider.init(me);
     loadsave.init(me);
+    sprites.init(me);
     io.init(me);
 })();
 

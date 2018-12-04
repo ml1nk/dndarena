@@ -30,7 +30,10 @@ fastify.listen(3000, "0.0.0.0", (err, address) => {
 
 let def = {
   field : {
-    "0:0:0" : "transparent"
+    "0:0:0" : {
+      type : "transparent",
+      visible : true
+    }
   },
   audio : {
     play : false,
