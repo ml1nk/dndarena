@@ -49,7 +49,7 @@ function startup(res) {
             });
             this.$content.find('.name').val(params.get("name"));
             this.$content.find('.room').val(params.get("room"));
-            var jc = this;
+            let jc = this;
             this.$content.find('form').on('submit', (e) => {
                 e.preventDefault();
                 jc.$$formSubmit.trigger('click');
