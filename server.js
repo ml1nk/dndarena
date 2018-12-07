@@ -13,7 +13,8 @@ const io = require('socket.io')(fastify.server);
 
 fastify.register(require('fastify-static'), {
   root: path.join(__dirname, 'dist'),
-  prefix: '/dist/'
+  prefix: '/dist/',
+  maxAge: 60000*60000
 });
 
 // 2l7ixRE3OCw
