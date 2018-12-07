@@ -3248,6 +3248,11 @@
       "resolved": "https://registry.npmjs.org/jquery-ui/-/jquery-ui-1.12.1.tgz",
       "integrity": "sha1-vLQEXI3QU5wTS8FIjN0+dop6nlE="
     },
+    "jquery-ui-touch-punch": {
+      "version": "0.2.3",
+      "resolved": "https://registry.npmjs.org/jquery-ui-touch-punch/-/jquery-ui-touch-punch-0.2.3.tgz",
+      "integrity": "sha1-7tgiQnM7okP0az6HwYQbMIGR2mg="
+    },
     "js-tokens": {
       "version": "3.0.2",
       "resolved": "https://registry.npmjs.org/js-tokens/-/js-tokens-3.0.2.tgz",

@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "NODE_ENV=production node server.js",
-    "build" : "NODE_ENV=production webpack",
+    "start": "NODE_ENV=production node server.js",
+    "build": "NODE_ENV=production webpack",
     "dev": "NODE_ENV=development concurrently --kill-others \"npm run dev-watch\" \"npm run dev-server\"",
     "dev-watch": "webpack --watch",
     "dev-server": "nodemon server.js"
@@ -30,6 +30,7 @@
     "jquery-contextmenu": "^2.7.1",
     "jquery-toggles": "^4.0.0",
     "jquery-ui": "^1.12.1",
+    "jquery-ui-touch-punch": "^0.2.3",
     "node-require-fallback": "^1.0.0",
     "pixi-viewport": "^3.10.0",
     "pixi.js": "^4.8.2",

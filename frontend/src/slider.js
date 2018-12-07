@@ -1,5 +1,6 @@
 const $ = require('jquery');
 require('jquery-ui/ui/widgets/slider');
+require('jquery-ui-touch-punch');
 require('jquery-ui/themes/base/theme.css');
 require('jquery-ui/themes/base/slider.css');
 const pixi = require('./pixi.js');
