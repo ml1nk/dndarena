@@ -6,7 +6,9 @@ const config = requireIfExists(path.resolve(__dirname,'config.json'), path.resol
 
 // Require the framework and instantiate it
 const fastify = require('fastify')({
-  logger: config.logger
+  logger: {
+    level: config.logger
+  }
 })
 
 const io = require('socket.io')(fastify.server,{path: '/ws'});
@@ -21,7 +23,10 @@ fastify.register(require('fastify-static'), {
 // 5aZI-jukT5E
 // ximgPmJ9A5s
 
-fastify.get('/', (req, reply) => reply.sendFile('index.html'));
+fastify.get('/', (req, res) => {
+  res.res.setHeader('Cache-Control', 'max-age=0');
+  res.sendFile('index.html');
+});
 
 // Run the server!
 fastify.listen(config.port, config.interface, (err, address) => {
