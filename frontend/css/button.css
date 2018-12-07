@@ -1,0 +1,41 @@
+#button-load,
+#button-save,
+#button-play,
+#button-audio {
+    position: absolute;
+}
+
+#button-load,
+#button-save {
+    left: 12px;
+}
+
+#button-play,
+#button-audio {
+    left: 59px;
+}
+
+#button-load,
+#button-play {
+    bottom: 20px;
+}
+
+#button-save,
+#button-audio {
+    bottom: 60px;
+}
+
+#button-chat,
+#button-mute {
+    display: none;
+    bottom: 20px;
+    position: absolute;
+}
+
+#button-chat {
+    right: 20px;
+}
+
+#button-mute {
+    right: 67px;
+}

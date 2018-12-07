@@ -1,3 +1,6 @@
+require('./css/main.css');
+require('./css/button.css');
+
 const pixi = require('./src/pixi.js');
 const sprites = require('./src/sprites.js');
 const io = require('./src/io.js');
