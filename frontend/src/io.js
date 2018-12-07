@@ -4,7 +4,8 @@ const ev3 = require("eventemitter3");
 let state = {};
 let io = socket({
     autoConnect: false,
-    transports: ['websocket']
+    transports: ['websocket'],
+    path: location.pathname+'ws/'
 });
 let ev = new ev3();
 
