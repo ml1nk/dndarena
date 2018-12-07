@@ -1,7 +1,8 @@
 const path = require('path');
 const clone = require('clone-deep');
-
 const ytdl = require("ytdl-core");
+const requireIfExists = require('node-require-fallback');""
+const config = requireIfExists(path.resolve(__dirname,'config.json', path.resolve(__dirname, 'config.sample.json')));
 
 // Require the framework and instantiate it
 const fastify = require('fastify')({
@@ -22,7 +23,7 @@ fastify.register(require('fastify-static'), {
 fastify.get('/', (req, reply) => reply.sendFile('index.html'));
 
 // Run the server!
-fastify.listen(3000, "0.0.0.0", (err, address) => {
+fastify.listen(config.port, config.interface, (err, address) => {
   if (err) throw err
   fastify.log.info(`server listening on ${address}`)
 })
