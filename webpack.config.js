@@ -85,6 +85,7 @@ if (prod) {
 
   module.exports.plugins.push(new MiniCssExtractPlugin({
     filename: "[name].[hash].css",
+    publicPath: "dist/",
     chunkFilename: "[id].[name].[hash].css"
   }));
 
