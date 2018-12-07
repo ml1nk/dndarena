@@ -73,7 +73,9 @@ if (prod) {
 
   module.exports.module.rules[0].use[0] = {
     loader: MiniCssExtractPlugin.loader,
-    options: {}
+    options: {
+      publicPath : ""
+    }
   }
 
   module.exports.module.rules[0].use[1].options.importLoaders = 1;
@@ -85,8 +87,7 @@ if (prod) {
 
   module.exports.plugins.push(new MiniCssExtractPlugin({
     filename: "[name].[hash].css",
-    publicPath: "dist/",
-    chunkFilename: "[id].[name].[hash].css"
+    chunkFilename: "[id].[name].[hash].css",
   }));
 
   module.exports.plugins.push(new BundleAnalyzerPlugin({
