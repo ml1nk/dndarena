@@ -1,8 +1,8 @@
 const path = require('path');
 const clone = require('clone-deep');
 const ytdl = require("ytdl-core");
-const requireIfExists = require('node-require-fallback');""
-const config = requireIfExists(path.resolve(__dirname,'config.json', path.resolve(__dirname, 'config.sample.json')));
+const requireIfExists = require('node-require-fallback');
+const config = requireIfExists(path.resolve(__dirname,'config.json'), path.resolve(__dirname, 'config.sample.json'));
 
 // Require the framework and instantiate it
 const fastify = require('fastify')({
