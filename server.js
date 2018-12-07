@@ -6,7 +6,7 @@ const config = requireIfExists(path.resolve(__dirname,'config.json'), path.resol
 
 // Require the framework and instantiate it
 const fastify = require('fastify')({
-  logger: true
+  logger: config.logger
 })
 
 const io = require('socket.io')(fastify.server);

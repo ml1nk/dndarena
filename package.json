@@ -4,6 +4,8 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "NODE_ENV=production node server.js",
+    "build" : "NODE_ENV=production webpack",
     "dev": "NODE_ENV=development concurrently --kill-others \"npm run dev-watch\" \"npm run dev-server\"",
     "dev-watch": "webpack --watch",
     "dev-server": "nodemon server.js"
