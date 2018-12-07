@@ -3248,10 +3248,13 @@
       "resolved": "https://registry.npmjs.org/jquery-ui/-/jquery-ui-1.12.1.tgz",
       "integrity": "sha1-vLQEXI3QU5wTS8FIjN0+dop6nlE="
     },
-    "jquery-ui-touch-punch": {
-      "version": "0.2.3",
-      "resolved": "https://registry.npmjs.org/jquery-ui-touch-punch/-/jquery-ui-touch-punch-0.2.3.tgz",
-      "integrity": "sha1-7tgiQnM7okP0az6HwYQbMIGR2mg="
+    "jquery.ui.touch": {
+      "version": "0.0.1",
+      "resolved": "https://registry.npmjs.org/jquery.ui.touch/-/jquery.ui.touch-0.0.1.tgz",
+      "integrity": "sha1-wgkfkH9kW/MqxF7EusDXx6U1mek=",
+      "requires": {
+        "jquery": "*"
+      }
     },
     "js-tokens": {
       "version": "3.0.2",

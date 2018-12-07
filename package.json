@@ -30,7 +30,7 @@
     "jquery-contextmenu": "^2.7.1",
     "jquery-toggles": "^4.0.0",
     "jquery-ui": "^1.12.1",
-    "jquery-ui-touch-punch": "^0.2.3",
+    "jquery.ui.touch": "0.0.1",
     "node-require-fallback": "^1.0.0",
     "pixi-viewport": "^3.10.0",
     "pixi.js": "^4.8.2",
