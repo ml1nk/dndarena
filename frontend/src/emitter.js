@@ -3,24 +3,47 @@
 const particles = require('pixi-particles');
 const sprites = require('./sprites.js');
 const pixi = require('./pixi.js');
+const io = require('./io.js');
+const PIXI = require('pixi.js');
 
 let elapsed;
 let count = 0;
 let length = 0;
 const data = {};
+const effects = {};
 
 function init(me) {
 
+    effects.glow = [
+        [sprites.particles.glow],
+        require("./../emitter/pointer.json")
+    ];
 
+    let key;
+    $(document).mousedown((b)=>{
+        if(b.which!==2) return;
+        pixi.v.on("mousemove",mousemove);
+        let pt = pixi.v.toLocal(new PIXI.Point(b.clientX, b.clientY));
+        key = add("glow",pt.x, pt.y);
+    });
+    
+    $(document).mouseup((b)=>{
+        if(b.which!==2) return;
+        pixi.v.off("mousemove",mousemove);
+        rm(key);
+    });
 
-
-    return add_pointer(50,50);
+    function mousemove(e) {
+        let local = e.data.getLocalPosition(pixi.v);
+        move(key, local.x, local.y);
+    }
 
 }
 
 function rm(key) {
     data[key].destroy();
     pixi.v.removeChild(data[key].parent);
+    delete data[key];
     length--;
 }
 
@@ -28,26 +51,19 @@ function move(key, x, y) {
     data[key].updateOwnerPos(x, y);
 }
 
-function add_pointer(x,y) {
-    return add(x,y,
-        [sprites.particles.glow],
-        require("./../emitter/pointer.json")
-    );
-}
-
-function add(x, y, pa, co) {
+function add(type, x, y) {
     const ec = new PIXI.Container();
     pixi.v.addChild(ec);
-    const emitter = new particles.Emitter(ec,pa,co);
+    const emitter = new particles.Emitter(ec, effects[type][0], effects[type][1]);
     emitter.updateOwnerPos(x, y);
     emitter.emit = true;
     data[count++] = emitter;
     length++;
-    if(length===1) {
+    if (length === 1) {
         elapsed = Date.now();
         update();
     }
-    return data.length-1;
+    return count - 1;
 }
 
 function update() {
@@ -57,7 +73,7 @@ function update() {
         empty = false;
         data[key].update((now - elapsed) * 0.001);
     }
-    if(empty) return;
+    if (empty) return;
     elapsed = now;
     requestAnimationFrame(update);
 }
@@ -95,7 +111,6 @@ function update() {
 
 window.init = init;
 window.add = add;
-window.add_pointer = add_pointer;
 window.rm = rm;
 window.move = move;
 
