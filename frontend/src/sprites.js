@@ -18,7 +18,6 @@ exports.pre = () => {
 
     const plo = new PIXI.loaders.Loader();
     pco.keys().forEach((key)=>{
-        console.log(key,pco(key));
         plo.add(key.slice(2, -4), pco(key));
     });
 
@@ -31,7 +30,6 @@ exports.pre = () => {
             finish();
         });
         plo.load((loader, resources) => {
-            console.log(resources);
             for (let key in resources) {
                 particles[key] = resources[key].texture;
             }
