@@ -63,13 +63,12 @@ io.on('connection', function (socket) {
   socket.on('audio',async (v,cb)=>{
     try {
       let info = await ytdl.getInfo(v);
-      console.log(info);
       let format = ytdl.chooseFormat(info.formats, { 
         filter: "audioonly",
         quality: "highestaudio"
       });
       if (!format) cb(false);
-      cb({ url : format.url, title : info.title, duration: parseInt(info.length_seconds), thumbnail : info.media.image});
+      cb({ url : format.url, title : info.title, duration: parseInt(info.length_seconds), thumbnail : info.player_response.videoDetails.thumbnail.thumbnails[0].url});
     } catch(e) {
       cb(false);
     }
