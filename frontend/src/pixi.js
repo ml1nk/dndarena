@@ -1,8 +1,10 @@
 const PIXI = require('pixi.js');
-const viewport = require('pixi-viewport');
+const viewport = require('pixi-viewport').Viewport
 const hexagon = require('./../config.json').hexagon;
 
-var app = new PIXI.Application(window.innerWidth, window.innerHeight, {
+var app = new PIXI.Application({
+    width: window.innerWidth, 
+    height: window.innerHeight,
     transparent: true,
     antialias: true
 });

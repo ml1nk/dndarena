@@ -1,3 +1,6 @@
+require('./css/main.css');
+require('./css/button.css');
+
 const pixi = require('./src/pixi.js');
 const sprites = require('./src/sprites.js');
 const io = require('./src/io.js');
@@ -7,6 +10,7 @@ const loadsave = require('./src/loadsave.js');
 const dialog = require('./src/startup.js');
 const chat = require('./src/chat.js');
 const context = require('./src/context.js');
+const emitter = require('./src/emitter.js');
 
 document.body.appendChild(pixi.app.view);
 
@@ -20,6 +24,7 @@ document.body.appendChild(pixi.app.view);
     slider.init(me);
     loadsave.init(me);
     sprites.init(me);
+    emitter.init(me);
     io.init(me);
 })();
 

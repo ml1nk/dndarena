@@ -1,28 +1,35 @@
 const path = require('path');
 const clone = require('clone-deep');
-
 const ytdl = require("ytdl-core");
+const requireIfExists = require('node-require-fallback');
+const config = requireIfExists(path.resolve(__dirname,'config.json'), path.resolve(__dirname, 'config.sample.json'));
 
 // Require the framework and instantiate it
 const fastify = require('fastify')({
-  logger: true
+  logger: {
+    level: config.logger
+  }
 })
 
-const io = require('socket.io')(fastify.server);
+const io = require('socket.io')(fastify.server,{path: '/ws'});
 
 fastify.register(require('fastify-static'), {
   root: path.join(__dirname, 'dist'),
-  prefix: '/dist/'
+  prefix: '/dist/',
+  maxAge: 60000*60000
 });
 
 // 2l7ixRE3OCw
 // 5aZI-jukT5E
 // ximgPmJ9A5s
 
-fastify.get('/', (req, reply) => reply.sendFile('index.html'));
+fastify.get('/', (req, res) => {
+  res.res.setHeader('Cache-Control', 'max-age=0');
+  res.sendFile('index.html');
+});
 
 // Run the server!
-fastify.listen(3000, "0.0.0.0", (err, address) => {
+fastify.listen(config.port, config.interface, (err, address) => {
   if (err) throw err
   fastify.log.info(`server listening on ${address}`)
 })

@@ -4,7 +4,9 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "NODE_ENV=development concurrently --kill-others \"npm run dev-watch\" \"npm run dev-server\"",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "build": "cross-env NODE_ENV=production webpack",
+    "dev": "cross-env NODE_ENV=development concurrently --kill-others \"npm run dev-watch\" \"npm run dev-server\"",
     "dev-watch": "webpack --watch",
     "dev-server": "nodemon server.js"
   },
@@ -14,9 +16,11 @@
   },
   "license": "GPLv3",
   "dependencies": {
-    "bootstrap": "^3.4.1",
+    "bootstrap": "^3.3.7",
+    "clean-webpack-plugin": "^3.0.0",
     "clone-deep": "^4.0.1",
-    "css-loader": "^3.2.0",
+    "css-loader": "^3.0.2",
+    "cssnano": "^4.1.10",
     "eventemitter3": "^4.0.0",
     "fastify": "^2.7.1",
     "fastify-static": "^2.5.0",
@@ -28,12 +32,20 @@
     "jquery-contextmenu": "^2.8.0",
     "jquery-toggles": "^4.0.0",
     "jquery-ui": "^1.12.1",
-    "pixi-viewport": "^4.2.1",
+    "jquery.ui.touch": "0.0.1",
+    "mini-css-extract-plugin": "^0.8.0",
+    "node-require-fallback": "^1.0.0",
+    "pixi-particles": "^4.1.2",
+    "pixi-viewport": "^4.2.2",
     "pixi.js": "^5.1.2",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.7.0",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.39.3",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.25.1",
+    "webpack-bundle-analyzer": "^3.4.1",
     "webpack-cli": "^3.3.7",
     "youtube-url": "^0.5.0",
     "ytdl-core": "^0.29.5"
@@ -41,6 +53,7 @@
   "devDependencies": {
     "concurrently": "^4.1.2",
     "eslint": "^6.2.2",
+    "cross-env": "^5.2.0",
     "nodemon": "^1.19.1"
   }
 }
