@@ -24,7 +24,7 @@ let initialWidth = window.innerWidth;
 let initialHeight = window.innerHeight;
 window.addEventListener("resize", resize);
 app.stage.addChild(v);
-v.drag().pinch().wheel().clampZoom({
+v.drag({ mouseButtons : "left"}).pinch().wheel().clampZoom({
     minWidth: hexagon.radius * 3,
     minHeight: hexagon.radius * 3,
     maxWidth: hexagon.radius * 30,
