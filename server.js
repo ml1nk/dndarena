@@ -3,6 +3,7 @@ const clone = require('clone-deep');
 const ytdl = require("ytdl-core");
 const requireIfExists = require('node-require-fallback');
 const config = requireIfExists(path.resolve(__dirname,'config.json'), path.resolve(__dirname, 'config.sample.json'));
+const eso = require('event-shared-object');
 
 // Require the framework and instantiate it
 const fastify = require('fastify')({
@@ -36,11 +37,9 @@ fastify.listen(config.port, config.interface, (err, address) => {
 
 
 let def = {
-  field : {
-    "0:0:0" : {
-      type : "transparent",
-      visible : true
-    }
+  "f0:0:0" : {
+    type : "transparent",
+    visible : true
   },
   audio : {
     play : false,
@@ -55,7 +54,7 @@ let state = {};
 io.on('connection', function (socket) {
   let room = socket.handshake.query.room ? socket.handshake.query.room : "";
   if(!state[room]) {
-    state[room] = clone(def);
+    state[room] = eso.master("state", io.to(room).emit.bind(io.to(room)), clone(def));
   }
 
   socket.join(room);
@@ -73,21 +72,6 @@ io.on('connection', function (socket) {
       cb(false);
     }
   })
-
-  socket.emit("state", ["",state[room]]);
   socket.on("message",obj=>socket.to(room).emit("message",obj));
-  socket.on("state",obj => {
-    if(obj[0] === "") {
-      state[room] = obj[1];
-    } else {
-      let parts = obj[0].split('.');
-      let pre = parts.slice(0, -1).reduce((o, i) => o[i], state[room]);
-      if(obj[1]===null) {
-          delete pre[parts.slice(-1)[0]];
-      } else {
-          pre[parts.slice(-1)[0]] = obj[1];
-      }
-    }
-    io.to(room).emit("state",obj);
-  });
+  state[room].register(socket);
 });

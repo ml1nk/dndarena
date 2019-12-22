@@ -68,11 +68,11 @@ function cube_round(x, y, z) {
 }
 
 function to(x, y, z) {
-    return x+":"+y+":"+z
+    return "f"+x+":"+y+":"+z
 }
 
 function from(val) {
-    let [x, y, z] = val.split(":");
+    let [x, y, z] = val.slice(1).split(":");
     return [parseInt(x),parseInt(y), parseInt(z)];
 }
 

@@ -13,8 +13,8 @@ function init(me) {
 
     let field;
     let set = key => {
-        let obj = io.state.get().field[calc.to(field.x, field.y, field.z)];
-        io.state.set("field." + calc.to(field.x, field.y, field.z), {
+        let obj = io.state.obj[calc.to(field.x, field.y, field.z)];
+        io.state.write(calc.to(field.x, field.y, field.z), {
             type: key,
             visible: obj && obj.visible
         });
@@ -38,10 +38,11 @@ function init(me) {
             return;
         }
         let [x, y, z] = calc.pixel_to_cube(pt.x, pt.y);
-        let obj = io.state.get().field[calc.to(x, y, z)];
-        if (!obj) return;
+        let obj = io.state.obj[calc.to(x, y, z)];
+        if (!obj) 
+            return;
         obj.visible = !obj.visible;
-        io.state.set("field." + calc.to(x, y, z), obj);
+        io.state.write(calc.to(x, y, z), obj);
     });
 
     pixi.v.on("rightclick", e => {

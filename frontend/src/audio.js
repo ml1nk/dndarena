@@ -7,7 +7,6 @@ let mute = false;
 let sound = false;
 
 function init(me) {
-    io.state.on("", obj => apply(obj.audio));
     io.state.on("audio", apply);
 
     $("#button-mute").show().click(() => {
@@ -28,7 +27,7 @@ function init(me) {
     $("#button-play").show().click(() => {
         audio.play = $("#button-play span").hasClass("glyphicon-play");
         audio.time = (Date.now() / 1000) - audio.time;
-        io.state.set("audio", audio);
+        io.state.write("audio", audio);
     });
 
     $("#button-audio").show().click(() => {
@@ -45,14 +44,14 @@ function init(me) {
                         if (data) {
                             let id = this.$content.find('.youid').val();
                             let pos = this.$content.find('.beginslider').slider("value");
-                            io.state.set("audio", {
+                            io.state.write("audio", {
                                 data: data,
                                 play: audio.play,
                                 id: id,
                                 time: audio.play ? (Date.now() / 1000) - pos : pos
                             });
                         } else {
-                            io.state.set("audio", {
+                            io.state.write("audio", {
                                 data: false,
                                 play: audio.play,
                                 id: "",

@@ -87,21 +87,12 @@ exports.particles = particles;
 
 exports.init = (me) => {
 
-    io.state.on("field.*", (key, pre) => {
+    io.state.on("f", (key, cur) => {
         let [x, y, z] = calc.from(key);
-        if (typeof pre[key] === "undefined") {
+        if (typeof cur !== "object")
             del(x, y, z);
-        } else {
-            add(pre[key], x, y, z);
-        }
-    });
-
-    io.state.on("", (state) => {
-        clear();
-        for (let key in state.field) {
-            let [x, y, z] = calc.from(key);
-            add(state.field[key], x, y, z);
-        }
+        else
+            add(cur, x, y, z);
     });
 
     function add(obj, x, y, z) {
@@ -126,12 +117,4 @@ exports.init = (me) => {
         pixi.v.removeChild(s);
         delete data[calc.to(x, y, z)];
     }
-
-    function clear() {
-        for (let key in data) {
-            pixi.v.removeChild(data[key]);
-            delete data[key];
-        }
-    }
-
 }

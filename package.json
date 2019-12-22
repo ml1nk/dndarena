@@ -21,6 +21,7 @@
     "clone-deep": "^4.0.1",
     "css-loader": "^3.0.2",
     "cssnano": "^4.1.10",
+    "event-shared-object": "^1.0.0",
     "eventemitter3": "^4.0.0",
     "fastify": "^2.7.1",
     "fastify-static": "^2.5.0",
