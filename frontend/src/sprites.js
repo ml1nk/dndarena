@@ -13,12 +13,12 @@ const particles = {};
 exports.pre = () => {
     const flo = new PIXI.Loader();
     fco.keys().forEach((key)=>{
-        flo.add(key.slice(2, -4), fco(key));
+        flo.add(key.slice(2, -4), fco(key).default);
     });
 
     const plo = new PIXI.Loader();
     pco.keys().forEach((key)=>{
-        plo.add(key.slice(2, -4), pco(key));
+        plo.add(key.slice(2, -4), pco(key).default);
     });
 
     return new Promise((resolve) => {
@@ -87,7 +87,9 @@ exports.particles = particles;
 
 exports.init = (me) => {
 
-    io.state.on("f", (key, cur) => {
+    io.state.register((key, last, cur) => {
+        if(!key.startsWith("f"))
+            return;
         let [x, y, z] = calc.from(key);
         if (typeof cur !== "object")
             del(x, y, z);

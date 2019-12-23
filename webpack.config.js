@@ -29,10 +29,7 @@ module.exports = {
       },
       {
         test: /\.(png|eot|woff|woff2|ttf|svg)$/,
-        use: [{
-          loader: 'file-loader',
-          options: {}
-        }]
+        use: ['file-loader']
       },
       {
         test: /\.(html)$/,

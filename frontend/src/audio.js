@@ -7,7 +7,7 @@ let mute = false;
 let sound = false;
 
 function init(me) {
-    io.state.on("audio", apply);
+    io.state.register(apply);
 
     $("#button-mute").show().click(() => {
         let icon = $("#button-mute .glyphicon");
@@ -122,7 +122,9 @@ function init(me) {
 
 }
 
-function apply(obj) {
+function apply(key, _, obj) {
+    if(key!=="audio")
+        return;
     $("#button-play span")
         .removeClass(obj.play ? "glyphicon-play" : "glyphicon-pause")
         .addClass(obj.play ? "glyphicon-pause" : "glyphicon-play");

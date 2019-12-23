@@ -14,12 +14,15 @@ function init(me) {
         try {
             let res = await upload(".dnd");
             let data = JSON.parse(res);
-            io.state.set("",data);
+            io.state.load(data);
         } catch(e) {}
     });
 
     $("#button-save").show().click(()=>{
-        download('map_'+getFormattedTime()+'.dnd', 'text/plain', JSON.stringify(io.state.get()));
+        download(
+            'map_'+getFormattedTime()+'.dnd', 'text/plain', 
+            JSON.stringify(io.state.obj)
+        );
     });
 
 }
