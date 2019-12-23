@@ -73,5 +73,10 @@ io.on('connection', function (socket) {
     }
   })
   socket.on("message",obj=>socket.to(room).emit("message",obj));
+
   state[room].register(socket);
+  socket.on('disconnect', () => {
+    state[room].unregister(socket);
+  });
+  
 });
