@@ -10,7 +10,7 @@ const getFormattedTime = require('../lib/getFormattedTime.js');
 function init(me) {
     if(!me.gm) return;
 
-    $("#button-load").show().click(async ()=>{
+    $("#button-load").show().click(async () =>{
         try {
             let res = await upload(".dnd");
             let data = JSON.parse(res);

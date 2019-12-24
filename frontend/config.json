@@ -4,12 +4,9 @@
         "border" : 5
     },
     "types" : [
-        ["grass1", "Grass 1"],
-        ["dirt1", "Dirt 1"],
-        ["dirt2", "Dirt 2"],
-        ["cobblestone1", "Cobblestone 1"],
-        ["cobblestone2", "Cobblestone 2"],
-        ["boulder1", "Boulder 1"],
-        ["transparent","Transparent"]
+        ["grass", "Grass"],
+        ["dirt", "Dirt"],
+        ["cobblestone", "Cobblestone"],
+        ["wall", "Wall"]
     ]
 }

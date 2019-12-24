@@ -4,6 +4,7 @@ const ytdl = require("ytdl-core");
 const requireIfExists = require('node-require-fallback');
 const config = requireIfExists(path.resolve(__dirname,'config.json'), path.resolve(__dirname, 'config.sample.json'));
 const eso = require('event-shared-object');
+const def = require('./default.json');
 
 // Require the framework and instantiate it
 const fastify = require('fastify')({
@@ -35,20 +36,6 @@ fastify.listen(config.port, config.interface, (err, address) => {
   fastify.log.info(`server listening on ${address}`)
 })
 
-
-let def = {
-  "f0:0:0" : {
-    type : "transparent",
-    visible : true
-  },
-  audio : {
-    play : false,
-    id : "",
-    data : false,
-    time : 0
-  }
-};
-
 let state = {};
 
 io.on('connection', function (socket) {
@@ -73,6 +60,7 @@ io.on('connection', function (socket) {
     }
   })
   socket.on("message",obj=>socket.to(room).emit("message",obj));
+  socket.on("emitter",obj=>socket.to(room).emit("emitter",obj));
 
   state[room].register(socket);
   socket.on('disconnect', () => {

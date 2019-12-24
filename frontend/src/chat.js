@@ -20,7 +20,7 @@ function add(text, own) {
     if(!own && $("#collapseOne.in").length===0 && $("#button-chat").css("color")!=="orange") {
         $("#button-chat").css("color","orange");
         $("#button-chat").one("click",()=>$("#button-chat").css("color","white"));
-    };
+    }
     let $newMsg = $("<li></li>");
     $("#chat").append($newMsg);
     $newMsg.text(text);

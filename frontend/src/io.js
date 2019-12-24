@@ -12,6 +12,7 @@ let slave = eso.slave("state", io, io.emit.bind(io));
 io.on("reconnect", slave.sync);
 
 exports.state = slave;
+exports.socket = io;
 
 exports.message = {
     out: (text) => io.emit("message", text),
