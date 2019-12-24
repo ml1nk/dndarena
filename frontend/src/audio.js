@@ -35,7 +35,7 @@ function init(me) {
         $.confirm({
             title: 'Audio - YouTube',
             draggable: false,
-            content: require("./audio.html"),
+            content: require("./../html/audio.html"),
             buttons: {
                 formSubmit: {
                     text: 'Save',

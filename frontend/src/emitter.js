@@ -1,3 +1,4 @@
+const $ = require('jquery');
 const sprites = require('./sprites.js');
 const pixi = require('./pixi.js');
 const io = require('./io.js');

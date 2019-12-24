@@ -5,8 +5,6 @@ require('jquery-ui/themes/base/theme.css');
 require('jquery-ui/themes/base/slider.css');
 const pixi = require('./pixi.js');
 
-
-
 function init() {
     $( "#slider-rotate" ).slider({
         orientation: "vertical",

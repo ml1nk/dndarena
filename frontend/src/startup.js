@@ -21,7 +21,7 @@ function startup(res) {
     $.confirm({
         title: 'Login',
         draggable: false,
-        content: require("./startup.html"),
+        content: require("./../html/startup.html"),
         buttons: {
             formSubmit: {
                 text: 'Save',

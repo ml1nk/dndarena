@@ -100,7 +100,8 @@ exports.init = (me) => {
     function add(obj, x, y, z) {
         let name = !me.gm && !obj.visible ? "unknown" : obj.type;
         let f = me.gm && !obj.visible ? typesi : types;
-        if (data.hasOwnProperty(calc.to(x, y, z))) {
+
+        if (Object.prototype.hasOwnProperty.call(data, calc.to(x, y, z))) {
             data[calc.to(x, y, z)].texture = f[name];
             return;
         }
@@ -114,7 +115,7 @@ exports.init = (me) => {
     }
 
     function del(x, y, z) {
-        if (!data.hasOwnProperty(calc.to(x, y, z))) return;
+        if (!Object.prototype.hasOwnProperty.call(data, calc.to(x, y, z))) return;
         let s = data[calc.to(x, y, z)];
         pixi.v.removeChild(s);
         delete data[calc.to(x, y, z)];

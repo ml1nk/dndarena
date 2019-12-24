@@ -15,7 +15,9 @@ function init(me) {
             let res = await upload(".dnd");
             let data = JSON.parse(res);
             io.state.load(data);
-        } catch(e) {}
+        } catch(e) {
+            console.error(e);
+        }
     });
 
     $("#button-save").show().click(()=>{
