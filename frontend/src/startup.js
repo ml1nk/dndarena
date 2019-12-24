@@ -4,6 +4,8 @@ require("jquery-toggles/toggles.js");
 require("jquery-confirm/css/jquery-confirm.css");
 require("jquery-toggles/css/toggles.css");
 require("jquery-toggles/css/themes/toggles-modern.css");
+
+const pwa = require("./pwa.js");
 const params = require("./../lib/params.js");
 
 function id() {
@@ -13,17 +15,29 @@ function id() {
 exports.init = ()=>new Promise(resolve=>startup(resolve));
 
 function startup(res) {
-    if(params.get("name") && params.get("room") && params.get("gm")) {
-        res({name:params.get("name"), gm:params.get("gm")!=="0", room:params.get("room"), id:id()});
-        return;
-    }
 
-    $.confirm({
+    let pwaEvent;
+    pwa.then((e)=>{
+        pwaEvent=e;
+        confirm.$$install.removeClass("hidden");
+        $("#pwa-install").removeClass("hidden");
+    });
+
+    let confirm  = $.confirm({
         title: 'Login',
         draggable: false,
         content: require("./../html/startup.html"),
         buttons: {
-            formSubmit: {
+            install: {
+                text: 'Install',
+                btnClass: 'btn-blue hidden',
+                action: function () {
+                    pwaEvent.prompt();
+                    this.$$install.hide();
+                    return false;
+                }
+            },
+            save: {
                 text: 'Save',
                 btnClass: 'btn-blue',
                 action: function() {

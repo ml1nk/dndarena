@@ -3,7 +3,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const WebpackPwaManifest = require('webpack-pwa-manifest')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const WorkboxPlugin = require('workbox-webpack-plugin');
 const prod = process.env.NODE_ENV === "production";
 
 module.exports = {
@@ -13,7 +15,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.[hash].js',
-    publicPath: "dist/"
+    publicPath: "/dist/"
   },
   module: {
     rules: [{
@@ -46,10 +48,32 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'frontend/index.html'
     }),
+    new WebpackPwaManifest({
+      name: 'DnD Arena',
+      short_name: 'Arena',
+      display: 'standalone',
+      description: 'DnD Arena für ',
+      background_color: '#ffffff',
+      crossorigin: 'use-credentials',
+      icons: [
+        {
+          src: path.resolve('./frontend/assets/icon.png'),
+          sizes: [96, 128, 192, 256, 384, 512, 1024] // multiple sizes
+        }
+      ]
+    }),
+    new WorkboxPlugin.GenerateSW({
+      exclude: [/.(?:png|eot|woff|woff2|ttf|svg)$/],
+      runtimeCaching: [{
+          urlPattern: /.(?:png|eot|woff|woff2|ttf|svg)$/,
+          handler: "CacheFirst",
+      }]
+    }),
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns : [
         "dist/*.*"
-      ]})
+      ]
+    })
   ]
 };
 

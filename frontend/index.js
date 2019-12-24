@@ -1,5 +1,6 @@
 require('./css/main.css');
 require('./css/button.css');
+require('./src/pwa.js');
 
 const pixi = require('./src/pixi.js');
 const sprites = require('./src/sprites.js');
@@ -14,7 +15,7 @@ const emitter = require('./src/emitter.js');
 
 document.body.appendChild(pixi.app.view);
 
-(async ()=>{
+(async () => {
     let sp = sprites.pre();
     let me = await dialog.init();
     await sp;
