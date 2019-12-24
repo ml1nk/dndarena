@@ -15,7 +15,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.[hash].js',
-    publicPath: "/dist/"
+    publicPath: ""
   },
   module: {
     rules: [{
@@ -31,7 +31,14 @@ module.exports = {
       },
       {
         test: /\.(png|eot|woff|woff2|ttf|svg)$/,
-        use: ['file-loader']
+        use: {
+          loader: 'file-loader',
+          options: {
+              name: '[contenthash].[ext]',
+              outputPath: 'assets/',
+              useRelativePath: true,
+          },
+      }
       },
       {
         test: /\.(html)$/,
@@ -58,6 +65,7 @@ module.exports = {
       icons: [
         {
           src: path.resolve('./frontend/assets/icon.png'),
+          destination: "assets",
           sizes: [96, 128, 192, 256, 384, 512, 1024] // multiple sizes
         }
       ]
@@ -70,8 +78,9 @@ module.exports = {
       }]
     }),
     new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns : [
-        "dist/*.*"
+      cleanOnceBeforeBuildPatterns :[
+        '**/*', 
+        '!.gitignore'
       ]
     })
   ]

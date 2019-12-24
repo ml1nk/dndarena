@@ -17,7 +17,7 @@ const io = require('socket.io')(fastify.server,{path: '/ws'});
 
 fastify.register(require('fastify-static'), {
   root: path.join(__dirname, 'dist'),
-  prefix: '/dist/',
+  prefix: '/',
   maxAge: 60000*60000
 });
 
