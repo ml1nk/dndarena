@@ -53,14 +53,18 @@ module.exports = {
       "window.jQuery": "jquery"
     }),
     new HtmlWebpackPlugin({
-      template: 'frontend/index.html'
+      template: 'frontend/index.html',
+      favicon: path.resolve('./frontend/assets/icon.ico')
     }),
     new WebpackPwaManifest({
+      filename: "[name].[hash].webmanifest",
       name: 'DnD Arena',
       short_name: 'Arena',
       display: 'standalone',
+      start_url: '.',
       description: 'DnD Arena für ',
       background_color: '#ffffff',
+      theme_color: '#0000ff',
       crossorigin: 'use-credentials',
       icons: [
         {
