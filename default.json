@@ -440,5 +440,11 @@
     "f6:-3:-3": {
         "type": "grass",
         "visible": true
+    }, 
+    "o1" : {
+        "texture" : "player1",
+        "zIndex" : 2,
+        "x": 5,
+        "y": 5
     }
 }

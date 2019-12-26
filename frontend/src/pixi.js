@@ -5,8 +5,7 @@ const hexagon = require('./../config.json').hexagon;
 var app = new PIXI.Application({
     width: window.innerWidth, 
     height: window.innerHeight,
-    transparent: true,
-    antialias: true
+    transparent: true
 });
 
 var v = new viewport({
@@ -35,7 +34,8 @@ v.drag({ mouseButtons : "left"}).pinch().wheel().clampZoom({
 v.position.set(window.innerWidth / 2, window.innerHeight / 2);
 
 function resize() {
-    v.position.x = v.position.x + (window.innerWidth - initialWidth) / 2;
+    v.position.x = v.p
+    v.position.x + (window.innerWidth - initialWidth) / 2;
     v.position.y = v.position.y + (window.innerHeight - initialHeight) / 2;
     app.renderer.resize(window.innerWidth, window.innerHeight);
     v.resize(window.innerWidth, window.innerHeight);
