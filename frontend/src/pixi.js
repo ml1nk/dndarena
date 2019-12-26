@@ -19,6 +19,7 @@ exports.app = app;
 exports.v = v;
 
 v.interactive = true;
+v.sortableChildren = true;
 
 let initialWidth = window.innerWidth;
 let initialHeight = window.innerHeight;

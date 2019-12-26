@@ -12,19 +12,22 @@ const dialog = require('./src/startup.js');
 const chat = require('./src/chat.js');
 const context = require('./src/context.js');
 const emitter = require('./src/emitter.js');
+const players = require('./src/players.js');
 
 document.body.appendChild(pixi.app.view);
 
 (async () => {
     let sp = sprites.pre();
+    let pl = players.pre();
     let me = await dialog.init();
-    await sp;
+    await Promise.all([sp,pl]);
     audio.init(me);
     chat.init(me);
     context.init(me);
     slider.init(me);
-    loadsave.init(me);
+    loadsave.init(me);  
     sprites.init(me);
     emitter.init(me);
+    //players.init(me);
     io.init(me);
 })();

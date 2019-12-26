@@ -1,6 +1,7 @@
 const PIXI = require("pixi.js");
 const pixi = require('./pixi.js');
 const calc = require("../lib/calc.js");
+const loadTexture = require("../lib/loadTexture.js");
 const hexagon = require("./../config.json").hexagon;
 const io = require("./io.js");
 const data = {};
@@ -10,37 +11,15 @@ const types = {};
 const typesi = {};
 const particles = {};
 
-exports.pre = () => {
-    const flo = new PIXI.Loader();
-    fco.keys().forEach((key)=>{
-        flo.add(key.slice(2, -4), fco(key).default);
-    });
-
-    const plo = new PIXI.Loader();
-    pco.keys().forEach((key)=>{
-        plo.add(key.slice(2, -4), pco(key).default);
-    });
-
-    return new Promise((resolve) => {
-        flo.load((loader, resources) => {
-            for (let key in resources) {
-                types[key] = genHex(resources[key].texture);
-                typesi[key] = genHex(resources[key].texture,resources["unknowngm"].texture);
-            }
-            finish();
-        });
-        plo.load((loader, resources) => {
-            for (let key in resources) {
-                particles[key] = resources[key].texture;
-            }
-            finish();
-        });
-        let i = 0;
-        function finish() {
-            i++;
-            if(i==2) resolve();
-        }
-    });
+exports.pre = async () => {
+    let [fcoR, pcoR] = await Promise.all([loadTexture(fco), loadTexture(pco)]);
+    for (let key in fcoR) {
+        types[key] = genHex(fcoR[key]);
+        typesi[key] = genHex(fcoR[key],fcoR["unknowngm"]);
+    }
+    for (let key in pcoR) {
+        particles[key] = pcoR[key];
+    }
 }
 
 
@@ -109,6 +88,7 @@ exports.init = (me) => {
         let s = new PIXI.Sprite(f[name]);
         s.anchor.set(0.5, 0.5);
         s.position = calc.cube_to_pixel(x, y, z);
+        s.zIndex = 1;
         data[calc.to(x, y, z)] = s;
 
         pixi.v.addChild(s);
