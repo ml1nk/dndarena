@@ -1,3 +1,4 @@
+const PIXI = require('pixi.js');
 const particles = require('pixi-particles');
 const autoremoveDelay = 10000;
 const emitterSpeed = 2;
@@ -33,6 +34,7 @@ function emitter(viewport) {
     function add(key, x, y, images, config) {
         if(Object.prototype.hasOwnProperty.call(data, key))
             return false;
+        config.autoUpdate = true;
         const emitter = new particles.Emitter(viewport, images, config);
         emitter.updateOwnerPos(x, y);
         emitter.emit = true;
@@ -51,7 +53,7 @@ function emitter(viewport) {
         count++;
         if (count === 1) {
             elapsed = Date.now();
-            _update();
+            PIXI.Ticker.shared.add(_update);
         }
         return true;
     }
@@ -62,23 +64,20 @@ function emitter(viewport) {
 
     function _update() {
         let empty = true;
-        let now = Date.now();
         for (const key in data) {
             let obj = data[key];
             empty = false;
             let x = obj.destPos.x-obj.currentPos.x;
             let y = obj.destPos.y-obj.currentPos.y;
             if(x!==0 || y!==0) {
-                let factor = Math.min(((now - elapsed) * emitterSpeed)/Math.sqrt(x*x+y*y), 1);
+                let factor = Math.min((PIXI.Ticker.shared.elapsedMS * emitterSpeed)/Math.sqrt(x*x+y*y), 1);
                 obj.currentPos.x += x*factor;
                 obj.currentPos.y += y*factor;
                 obj.emitter.updateOwnerPos(obj.currentPos.x, obj.currentPos.y);
             }
-            obj.emitter.update((now - elapsed) * 0.001);
         }
-        if (empty) return;
-        elapsed = now;
-        requestAnimationFrame(_update);
+        if (empty)
+            PIXI.Ticker.shared.remove(_update);
     }
 
     return {

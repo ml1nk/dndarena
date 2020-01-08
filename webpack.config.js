@@ -70,7 +70,7 @@ module.exports = {
         {
           src: path.resolve('./frontend/assets/icon.png'),
           destination: "assets",
-          sizes: [96, 128, 192, 256, 384, 512, 1024] // multiple sizes
+          sizes: [96, 128, 192, 256, 384, 512, 1024]
         }
       ]
     }),

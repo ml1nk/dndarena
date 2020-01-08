@@ -41,9 +41,7 @@ function genHex(tex, gm) {
         }
     }
 
-
     let reel = new PIXI.Container();
-
     let i = new PIXI.Sprite(tex);
     i.x = -hexagon.radius;
     i.y = -calc.height() / 2;

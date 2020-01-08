@@ -1,7 +1,18 @@
-<form class="formName">
-    <div class="form-group">
-        <br /><input type="text" placeholder="Room" class="room form-control" required /><br />
-        <br /><input type="text" placeholder="Character name" class="name form-control" required /><br />
-        <div id="init-toggle" style="margin: auto;height:50px" class="toggle toggle-modern"></div>
-    </div>
-</form>
+    <form>
+        <div class="form-group">
+            <label for="inputRoom">Session name</label>
+            <input type="text" class="form-control" id="inputRoom" aria-describedby="helpRoom"
+                placeholder="Enter Session name" required>
+            <small id="helpRoom" class="form-text text-muted">Share it with your group members.</small>
+        </div>
+        <div class="form-group">
+            <label for="inputName">Character name</label>
+            <input type="text" class="form-control" id="inputName" aria-describedby="helpName"
+                placeholder="Enter Character name" required>
+            <small id="helpName" class="form-text text-muted">Your preferented name ingame.</small>
+        </div>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="checkboxGamemaster">
+            <label class="custom-control-label" for="checkboxGamemaster">Are you the gamemaster?</label>
+        </div>
+    </form>

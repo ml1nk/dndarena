@@ -25,6 +25,7 @@ function startup(res) {
 
     let confirm  = $.confirm({
         title: 'Login',
+        animation: 'none',
         draggable: false,
         content: require("./../html/startup.html"),
         buttons: {

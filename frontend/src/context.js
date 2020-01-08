@@ -45,11 +45,14 @@ function init(me) {
         io.state.write(calc.to(x, y, z), obj);
     });
 
-    pixi.v.on("rightclick", e => {
+    pixi.v.on("rightclick", showContext);
+    //pixi.v.on("tap", showContext);
+
+    function showContext(e) {
         let local = e.data.getLocalPosition(pixi.v);
         let [x, y, z] = calc.pixel_to_cube(local.x, local.y);
         _field(e.data.global, x, y, z);
-    });
+    }
 
     $.contextMenu({
         selector: '#context-menu-field',
@@ -59,9 +62,6 @@ function init(me) {
             left: field.global.x
         }),
         build: function ($trigger, e) {
-            // this callback is executed every time the menu is to be shown
-            // its results are destroyed every time the menu is hidden
-            // e is the original contextmenu event, containing e.pageX and e.pageY (amongst other data)
             return {
                 items: {
                     "fold1": {
