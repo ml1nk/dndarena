@@ -23,7 +23,7 @@
     "cssnano": "^4.1.10",
     "event-shared-object": "^2.0.0",
     "fastify": "^2.11.0",
-    "fastify-static": "^2.5.1",
+    "fastify-static": "^4.2.4",
     "file-loader": "^5.0.2",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
