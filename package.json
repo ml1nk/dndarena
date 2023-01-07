@@ -26,7 +26,7 @@
     "fastify-static": "^2.5.1",
     "file-loader": "^5.0.2",
     "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^5.5.0",
     "jquery": "^3.4.1",
     "jquery-confirm": "^3.3.4",
     "jquery-contextmenu": "^2.9.0",
